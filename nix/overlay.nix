@@ -13,10 +13,6 @@
             melange = oself.melange;
           in
           {
-            # disabling flambda to test compilation times
-            ocaml = (osuper.ocaml.override { flambdaSupport = false; }).overrideAttrs (_: {
-              enableParallelBuilding = true;
-            });
             server-reason-react = buildDunePackage {
               pname = "server-reason-react";
               version = "n/a";
@@ -52,13 +48,6 @@
                   inherit (o.src) owner repo;
                   rev = "ddcdf980080c40e1cc62635c7505aa80253d5383";
                   sha256 = "sha256-SbwDv6QBDPyjU8yCqpPrpEnvgZprT43JIXk7r9EaZ6g=";
-                };
-              });
-            dune_3 = osuper.dune_3.overrideAttrs
-              (_: {
-                src = builtins.fetchurl {
-                  url = https://github.com/ocaml/dune/releases/download/3.11.0/dune-3.11.0.tbz;
-                  sha256 = "sha256:04v51mxzm991x7njd8hvvxki3wzc20lz04snf6fkm3aa2dz7v70v";
                 };
               });
           });
