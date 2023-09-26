@@ -1,0 +1,35 @@
+diff --git a/META.ppx_deriving.template b/META.ppx_deriving.template
+deleted file mode 100644
+index 4536ec9..0000000
+--- a/META.ppx_deriving.template
++++ /dev/null
+@@ -1,5 +0,0 @@
+-description = "Type-driven code generation"
+-ppx(-custom_ppx) = "./ppx_deriving"
+-requires = "ppx_deriving.runtime"
+-
+-# DUNE_GEN
+\ No newline at end of file
+diff --git a/dune-project b/dune-project
+index 0fda76b..cd42904 100644
+--- a/dune-project
++++ b/dune-project
+@@ -1,4 +1,5 @@
+-(lang dune 1.0)
++(lang dune 3.8)
++(using melange 0.1)
+ 
+ (name ppx_deriving)
+ (version 5.2.1)
+diff --git a/src/runtime/dune b/src/runtime/dune
+index c8462bb..7c9453b 100644
+--- a/src/runtime/dune
++++ b/src/runtime/dune
+@@ -3,6 +3,7 @@
+  (public_name ppx_deriving.runtime)
+  (wrapped false)
+  (synopsis "Type-driven code generation")
++ (modes :standard melange)
+  (libraries result))
+ 
+ (rule

@@ -1,0 +1,10 @@
+(include_subdirs unqualified)
+
+(melange.emit
+ (target main)
+ (alias js)
+ (module_systems es6)
+ (libraries melange reason-react melange-webapi)
+ (preprocess
+  (pps melange.ppx reason-react-ppx server-reason-react.browser_ppx -js)))
+

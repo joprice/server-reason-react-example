@@ -1,0 +1,4 @@
+(library
+ (name react_plugin)
+ (libraries server-reason-react.react)
+ (virtual_modules React_plugin))

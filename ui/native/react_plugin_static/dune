@@ -1,0 +1,6 @@
+(include_subdirs no)
+(library
+  (name react_plugin_static)
+  (modules react_plugin)
+  (implements react_plugin)
+  (libraries server-reason-react.react shared_native))

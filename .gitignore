@@ -1,0 +1,12 @@
+.direnv/
+_build/
+node_modules/
+out/
+*.install
+trace*.json
+_coverage/
+result
+.processes/last_built_at.txt
+*.qcow2
+*.dump
+.processes/

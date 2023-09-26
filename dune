@@ -1,0 +1,16 @@
+(env
+  (dev
+    (flags (:standard -warn-error -A+6+8+9+28)))
+  (static
+   (ocamlopt_flags (:standard -O3 -ccopt -static -ccopt -Wl,--no-as-needed)))
+  (strict
+    ; disabling some warnings that are not useful
+    ; 40 - name-out-of-scope
+    ; 44 - open-shadow-identifier
+    ; 42 - disambiguated-name - 4.00 backward compatibility
+    ; 70 - missing-mli
+    (flags (:standard -w +A-4-40-42-44-70-45-60 -warn-error +A-4-40-60-70-45)))
+  (release (ocamlopt_flags (:standard -O3))
+))
+
+(dirs :standard \ node_modules \ .direnv)

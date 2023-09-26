@@ -1,0 +1,46 @@
+(include_subdirs unqualified)
+
+(copy_files# "../js/shared/*.re")
+
+(library
+ (name shared_native)
+ (flags :standard -open ReactCompat -linkall)
+ (modules :standard \ plugin framework)
+ (libraries
+  react_compat
+  server-reason-react.react
+  server-reason-react.reactDom
+  server-reason-react.js
+  server-reason-react.belt
+  )
+ (preprocess
+  (pps 
+    server-reason-react.ppx 
+    server-reason-react.browser_ppx 
+    server-reason-react.regex_ppx)))
+
+(library
+  (name shared_native_dynamic)
+  (flags :standard -linkall)
+  (libraries shared_native react_plugin_dynamic)
+  (modules plugin)
+)
+
+; This builds a custom cmsx to include the application code in shared_native and the code in 
+; shared_native_dynamic to set the module reference in ui/native/react_plugin_dynamic/react_plugin 
+; to the latest version of the module.
+(rule
+ (alias default)
+ ; TODO: try depending on ml files directly to trigger changes to get around hash issues
+ (deps 
+   shared_native.cmxa 
+   shared_native_dynamic.cmxa
+   ; this is a workaround to handle cmxa files not triggering changes
+   shared_native.a 
+   shared_native_dynamic.a
+ )
+ (targets shared_native_plugin.cmxs)
+ (action 
+   (chdir %{workspace_root}
+   (run %{ocamlopt} -linkall -shared -o %{targets} %{deps}))))
+

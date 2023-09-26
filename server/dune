@@ -1,0 +1,49 @@
+(library
+ (name server_lib)
+ (flags :standard -open ReactCompat -linkall)
+ (modules :standard \ server_prod server_dev)
+ (libraries 
+   react_compat
+   eio_main
+   fmt.tty
+   logs.fmt
+   logs.threaded
+   piaf
+   ptime.clock.os
+   routes
+   server-reason-react.react
+   server-reason-react.reactDom
+   react_plugin
+ )
+ (preprocess (pps server-reason-react.ppx))
+)
+
+(executable
+ (public_name server_prod)
+ (name server_prod)
+ (modules server_prod)
+ (libraries server_lib react_plugin_static)
+ (preprocess (pps server-reason-react.ppx))
+)
+
+(executable
+ (public_name server_dev)
+ (name server_dev)
+ (modules server_dev)
+ (flags :standard -linkall)
+ (libraries server_lib react_plugin_dynamic)
+ (preprocess (pps server-reason-react.ppx))
+)
+
+(rule
+ (alias default)
+ (deps ./server_dev.exe)
+ (mode
+  (promote (until-clean)))
+ (action
+  ; we want dune to write the file but not attach any fsevents listeners to it,
+  ; so that watchexec can read from it without issues.
+  ; this means no (target), no (with-stdout-to), just a bash command with stdout
+  ; redirect inside a string
+  (bash "date > %{project_root}/../../.processes/last_built_at.txt")))
+
