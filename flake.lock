@@ -18,58 +18,6 @@
         "type": "github"
       }
     },
-    "melange": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "melange-compiler-libs": "melange-compiler-libs",
-        "nix-filter": [
-          "nix-filter"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1694652454,
-        "narHash": "sha256-pTpVWB3d831iy85K2N7yliLIvswBmW7xpOI48TfluXE=",
-        "owner": "melange-re",
-        "repo": "melange",
-        "rev": "465101328e0e1ec90e246b0a2e8622e6cbdc0584",
-        "type": "github"
-      },
-      "original": {
-        "owner": "melange-re",
-        "repo": "melange",
-        "type": "github"
-      }
-    },
-    "melange-compiler-libs": {
-      "inputs": {
-        "flake-utils": [
-          "melange",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "melange",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1694035969,
-        "narHash": "sha256-QJnOPSxduX34SAPJJXORukEusOLUe/rpMdOI2qOxnGo=",
-        "owner": "melange-re",
-        "repo": "melange-compiler-libs",
-        "rev": "6e6646c6f8b6e2d785e12b8c38e14af2e8e47893",
-        "type": "github"
-      },
-      "original": {
-        "owner": "melange-re",
-        "repo": "melange-compiler-libs",
-        "type": "github"
-      }
-    },
     "nix-filter": {
       "locked": {
         "lastModified": 1694857738,
@@ -125,7 +73,6 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "melange": "melange",
         "nix-filter": "nix-filter",
         "nixpkgs": "nixpkgs"
       }

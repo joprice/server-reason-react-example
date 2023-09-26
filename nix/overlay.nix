@@ -1,7 +1,6 @@
-{ melange }:
+{}:
 
 [
-  melange.overlays.default
   (self: super: {
     ocamlPackages = super.ocaml-ng.ocamlPackages_5_1;
   })

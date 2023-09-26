@@ -8,34 +8,23 @@
       url = "github:nix-ocaml/nix-overlays";
       inputs.flake-utils.follows = "flake-utils";
     };
-    melange = {
-      url = "github:melange-re/melange";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-filter.follows = "nix-filter";
-      inputs.flake-utils.follows = "flake-utils";
-    };
   };
 
   outputs =
     { self
     , nixpkgs
     , flake-utils
-    , melange
     , nix-filter
     }:
     (flake-utils.lib.eachDefaultSystem (system:
     let
-      pkgs = nixpkgs.legacyPackages."${system}".appendOverlays (import ./nix/overlay.nix {
-        inherit melange;
-      });
+      pkgs = nixpkgs.legacyPackages."${system}".appendOverlays (import ./nix/overlay.nix { });
       inherit (pkgs) ocamlPackages;
       nodeDependencies = (pkgs.lib.callPackageWith pkgs ./node.nix { nix-filter = nix-filter.lib; }).nodeDependencies;
       serverPkg = system: static:
         let
           pkgs = nixpkgs.legacyPackages."${system}".appendOverlays (
-            (import ./nix/overlay.nix {
-              inherit melange;
-            })
+            (import ./nix/overlay.nix { })
           );
           nodeDependencies = (pkgs.lib.callPackageWith pkgs ./node.nix {
             nix-filter = nix-filter.lib;
@@ -72,9 +61,7 @@
       packages =
         let
           pkgs = nixpkgs.legacyPackages."x86_64-linux".appendOverlays (
-            (import ./nix/overlay.nix {
-              inherit melange;
-            })
+            (import ./nix/overlay.nix { })
           );
           nodeDependencies = (pkgs.pkgsCross.musl64.lib.callPackageWith pkgs ./node.nix {
             nix-filter = nix-filter.lib;
